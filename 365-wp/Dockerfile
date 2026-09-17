@@ -1,12 +1,17 @@
 FROM wordpress:php8.3-apache
 
-# The base image can end up with both mpm_prefork and mpm_event enabled on
-# some platforms (Railway included), which makes Apache refuse to start
-# with "More than one MPM loaded." PHP (mod_php) requires the prefork MPM,
-# so force that explicitly and make sure the others are off.
-RUN (a2dismod mpm_event || true) \
- && (a2dismod mpm_worker || true) \
- && a2enmod mpm_prefork
+# The base image can end up with more than one MPM (multi-processing
+# module) enabled on some platforms (Railway included), which makes
+# Apache refuse to start with "More than one MPM loaded." PHP (mod_php)
+# requires the prefork MPM. Rather than rely on a2enmod/a2dismod (which
+# can silently no-op depending on the base image's current state), force
+# the exact symlink state directly so exactly one MPM is enabled.
+RUN rm -f /etc/apache2/mods-enabled/mpm_event.load \
+          /etc/apache2/mods-enabled/mpm_event.conf \
+          /etc/apache2/mods-enabled/mpm_worker.load \
+          /etc/apache2/mods-enabled/mpm_worker.conf \
+ && ln -sf /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load \
+ && ln -sf /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
 
 # Theme + must-use plugin (auto theme activation).
 COPY wp-content/themes/threesixfive /var/www/html/wp-content/themes/threesixfive
