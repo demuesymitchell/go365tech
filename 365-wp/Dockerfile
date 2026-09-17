@@ -1,5 +1,13 @@
 FROM wordpress:php8.3-apache
 
+# The base image can end up with both mpm_prefork and mpm_event enabled on
+# some platforms (Railway included), which makes Apache refuse to start
+# with "More than one MPM loaded." PHP (mod_php) requires the prefork MPM,
+# so force that explicitly and make sure the others are off.
+RUN (a2dismod mpm_event || true) \
+ && (a2dismod mpm_worker || true) \
+ && a2enmod mpm_prefork
+
 # Theme + must-use plugin (auto theme activation).
 COPY wp-content/themes/threesixfive /var/www/html/wp-content/themes/threesixfive
 COPY mu-plugins /var/www/html/wp-content/mu-plugins
