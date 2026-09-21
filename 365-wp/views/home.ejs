@@ -1,15 +1,22 @@
 <%- include('partials/header') %>
 
-<section class="hero">
-  <div class="container">
-    <span class="eyebrow">Design Catalog</span>
+<section class="hero hero--video">
+  <video class="hero-video" autoplay muted loop playsinline poster="">
+    <source src="/video/hero-background.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+
+  <div class="container hero-inner">
     <h1>Find the gas spring, hydraulic, or pneumatic solution your application needs.</h1>
     <p class="lead">365 Technologies designs for automotive, agricultural, medical, and industrial equipment manufacturers. Search the catalog or browse by discipline below — no pricing, just the engineering.</p>
 
     <div class="hero-search">
       <form action="/search" method="GET">
         <input type="text" name="q" placeholder="Search products — e.g. &quot;gas spring&quot;, &quot;valve&quot;, &quot;pump&quot;" aria-label="Search the catalog">
-        <button type="submit">Search</button>
+        <button type="submit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          Search
+        </button>
       </form>
       <div class="hero-search__hints">
         Popular:
