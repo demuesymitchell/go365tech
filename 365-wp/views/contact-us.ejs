@@ -1,0 +1,73 @@
+<%- include('partials/header') %>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> / Contact Us</div>
+    <h1>Contact Us</h1>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="entry-content">
+        <% if (submitted) { %>
+          <div class="notice notice-success">
+            <span class="eyebrow">Message sent</span>
+            <p style="margin:0;">Thanks — your message has been sent. We'll get back to you shortly.</p>
+          </div>
+        <% } else { %>
+          <% if (errors && errors.length) { %>
+            <div class="notice notice-error">
+              <span class="eyebrow">Please fix the following</span>
+              <ul>
+                <% errors.forEach(function (err) { %>
+                  <li><%= err %></li>
+                <% }) %>
+              </ul>
+            </div>
+          <% } %>
+
+          <form method="POST" action="/contact-us">
+            <div class="form-field">
+              <label for="first_name">First name</label>
+              <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" value="<%= values.first_name || '' %>">
+            </div>
+            <div class="form-field">
+              <label for="last_name">Last name</label>
+              <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" value="<%= values.last_name || '' %>">
+            </div>
+            <div class="form-field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="example@gmail.com" value="<%= values.email || '' %>">
+            </div>
+            <div class="form-field">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="Subject" value="<%= values.subject || '' %>">
+            </div>
+            <div class="form-field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="6" placeholder="Type here"><%= values.message || '' %></textarea>
+            </div>
+            <button type="submit" class="btn">Send Message</button>
+          </form>
+        <% } %>
+      </div>
+
+      <div class="contact-card">
+        <dl>
+          <dt>Address</dt>
+          <dd><%= site.address1 %><br><%= site.address2 %></dd>
+
+          <dt>Phone</dt>
+          <dd><a href="tel:<%= site.phoneHref %>"><%= site.phone %></a></dd>
+
+          <dt>Email</dt>
+          <dd><a href="mailto:<%= site.email %>"><%= site.email %></a></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

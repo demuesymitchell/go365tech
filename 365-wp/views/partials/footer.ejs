@@ -1,0 +1,52 @@
+</main><!-- #primary -->
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <span class="mark">365</span>
+          365 Technologies
+        </div>
+        <p><%= site.address1 %><br><%= site.address2 %></p>
+        <p>
+          <a href="mailto:<%= site.email %>"><%= site.email %></a><br>
+          <a href="tel:<%= site.phoneHref %>"><%= site.phone %></a>
+        </p>
+        <div class="social-row">
+          <a href="<%= site.social.facebook %>" aria-label="Facebook">f</a>
+          <a href="<%= site.social.instagram %>" aria-label="Instagram">ig</a>
+          <a href="<%= site.social.twitter %>" aria-label="Twitter/X">x</a>
+          <a href="<%= site.social.linkedin %>" aria-label="LinkedIn">in</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>What We Do</h4>
+        <ul>
+          <li><a href="/what-we-do">Overview</a></li>
+          <li><a href="/gas-springs">Gas Springs</a></li>
+          <li><a href="/hydraulic-design">Hydraulic Design</a></li>
+          <li><a href="/pneumatic-design">Pneumatic Design</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/who-we-are">Who We Are</a></li>
+          <li><a href="/contact-us">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; <%= new Date().getFullYear() %> 365 Technologies. All rights reserved.</span>
+      <span>Staging build — Railway</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

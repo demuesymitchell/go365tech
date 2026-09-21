@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title %></title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#primary">Skip to content</a>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-logo" href="/">
+      <span class="mark">365</span>
+      365 Technologies
+    </a>
+
+    <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="primary-nav" class="primary-nav" aria-label="Primary">
+      <ul>
+        <li class="<%= active === 'home' ? 'is-active' : '' %>"><a href="/">Home</a></li>
+        <li class="has-children <%= active === 'what-we-do' ? 'is-active' : '' %>">
+          <a href="/what-we-do">What We Do</a>
+          <ul class="sub-menu">
+            <li><a href="/gas-springs">Gas Springs</a></li>
+            <li><a href="/hydraulic-design">Hydraulic Design</a></li>
+            <li><a href="/pneumatic-design">Pneumatic Design</a></li>
+          </ul>
+        </li>
+        <li class="has-children <%= active === 'who-we-are' ? 'is-active' : '' %>">
+          <a href="/who-we-are">Who We Are</a>
+          <ul class="sub-menu">
+            <li><a href="/contact-us">Contact Us</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="header-cta">
+      <a class="phone" href="tel:<%= site.phoneHref %>"><%= site.phone %></a>
+      <a class="btn" href="/contact-us">Contact</a>
+    </div>
+  </div>
+</header>
+
+<main id="primary">
