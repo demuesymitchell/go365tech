@@ -187,8 +187,24 @@ function findItem(categorySlug, itemSlug) {
   return { cat, item: cat.items.find((i) => i.slug === itemSlug) };
 }
 
+// Flat, searchable index of every item across every category.
+function allItems() {
+  return catalog.flatMap((c) =>
+    c.items.map((i) => Object.assign({}, i, { categorySlug: c.slug, categoryName: c.name }))
+  );
+}
+
+function searchCatalog(query) {
+  const q = (query || "").trim().toLowerCase();
+  if (!q) return [];
+  return allItems().filter((i) => {
+    const haystack = `${i.name} ${i.blurb} ${i.categoryName}`.toLowerCase();
+    return haystack.includes(q);
+  });
+}
+
 function base(extra = {}) {
-  return { site, catalog, active: extra.active || "", title: extra.title };
+  return { site, catalog, active: extra.active || "", title: extra.title, query: extra.query || "" };
 }
 
 app.get("/", (req, res) => {
@@ -197,6 +213,15 @@ app.get("/", (req, res) => {
 
 app.get("/catalog", (req, res) => {
   res.render("catalog", base({ active: "catalog", title: "Catalog — 365 Technologies" }));
+});
+
+app.get("/search", (req, res) => {
+  const q = req.query.q || "";
+  const results = searchCatalog(q);
+  res.render(
+    "search",
+    Object.assign(base({ active: "catalog", title: `Search — 365 Technologies`, query: q }), { results })
+  );
 });
 
 app.get("/catalog/:category", (req, res, next) => {

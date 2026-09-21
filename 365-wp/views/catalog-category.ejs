@@ -14,24 +14,20 @@
     <div class="item-grid">
       <% cat.items.forEach(function (item) { %>
         <a class="item-card" href="/catalog/<%= cat.slug %>/<%= item.slug %>">
-          <div class="item-card__media"><span><%= cat.name %></span></div>
+          <div class="item-card__media"><span>Image Placeholder</span></div>
           <div class="item-card__body">
             <h3><%= item.name %></h3>
             <p><%= item.blurb %></p>
           </div>
         </a>
       <% }) %>
+      <div class="placeholder-card">
+        <div class="placeholder-card__icon">+</div>
+        <h3>More Items</h3>
+        <p>Coming soon in this category</p>
+      </div>
     </div>
   </div>
 </section>
-
-<div class="cta-band">
-  <div class="container">
-    <span class="eyebrow">Custom to Your Application</span>
-    <h2>Don't see the exact fit?</h2>
-    <p>Everything here is engineered to spec — tell us what you're building and we'll help design the right solution.</p>
-    <a class="btn" href="/contact-us">Contact Us</a>
-  </div>
-</div>
 
 <%- include('partials/footer') %>

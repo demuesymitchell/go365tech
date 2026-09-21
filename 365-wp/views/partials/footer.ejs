@@ -2,40 +2,22 @@
 
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <div class="footer-logo">
-          <span class="mark">365</span>
-          365 Technologies
-        </div>
-        <p><%= site.address1 %><br><%= site.address2 %></p>
-        <p>
-          <a href="mailto:<%= site.email %>"><%= site.email %></a><br>
-          <a href="tel:<%= site.phoneHref %>"><%= site.phone %></a>
-        </p>
-        <div class="social-row">
-          <a href="<%= site.social.facebook %>" aria-label="Facebook">f</a>
-          <a href="<%= site.social.instagram %>" aria-label="Instagram">ig</a>
-          <a href="<%= site.social.twitter %>" aria-label="Twitter/X">x</a>
-          <a href="<%= site.social.linkedin %>" aria-label="LinkedIn">in</a>
-        </div>
+    <div class="footer-top">
+      <div class="footer-logo">
+        <span class="mark">365</span>
+        365 Technologies
       </div>
-
-      <div class="footer-col">
-        <h4>Catalog</h4>
-        <ul>
-          <% catalog.forEach(function (c) { %>
-            <li><a href="/catalog/<%= c.slug %>"><%= c.name %></a></li>
-          <% }) %>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="/who-we-are">Who We Are</a></li>
-          <li><a href="/contact-us">Contact Us</a></li>
-        </ul>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/catalog">Catalog</a>
+        <a href="/who-we-are">Who We Are</a>
+        <a href="/contact-us">Contact</a>
+      </nav>
+      <div class="social-row">
+        <a href="<%= site.social.facebook %>" aria-label="Facebook">f</a>
+        <a href="<%= site.social.instagram %>" aria-label="Instagram">ig</a>
+        <a href="<%= site.social.twitter %>" aria-label="Twitter/X">x</a>
+        <a href="<%= site.social.linkedin %>" aria-label="LinkedIn">in</a>
       </div>
     </div>
 
@@ -45,11 +27,6 @@
     </div>
   </div>
 </footer>
-
-<div class="quick-contact" aria-label="Quick contact">
-  <a href="tel:<%= site.phoneHref %>" aria-label="Call 365 Technologies">☎</a>
-  <a href="mailto:<%= site.email %>" aria-label="Email 365 Technologies">✉</a>
-</div>
 
 <script src="/js/main.js"></script>
 </body>

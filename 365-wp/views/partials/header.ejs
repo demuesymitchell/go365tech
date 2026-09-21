@@ -19,10 +19,6 @@
       365 Technologies
     </a>
 
-    <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-
     <nav id="primary-nav" class="primary-nav" aria-label="Primary">
       <ul>
         <li class="<%= active === 'home' ? 'is-active' : '' %>"><a href="/">Home</a></li>
@@ -39,10 +35,20 @@
       </ul>
     </nav>
 
+    <div class="header-search">
+      <form action="/search" method="GET">
+        <input type="text" name="q" placeholder="Search the catalog…" value="<%= typeof query !== 'undefined' ? query : '' %>" aria-label="Search the catalog">
+        <button type="submit" aria-label="Search">→</button>
+      </form>
+    </div>
+
     <div class="header-cta">
-      <span class="phone"><%= site.phone %></span>
       <a class="btn" href="/contact-us">Get in Touch</a>
     </div>
+
+    <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 

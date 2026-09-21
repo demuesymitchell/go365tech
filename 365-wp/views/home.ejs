@@ -3,11 +3,18 @@
 <section class="hero">
   <div class="container">
     <span class="eyebrow">Design Catalog</span>
-    <h1>Gas spring, hydraulic &amp; pneumatic engineering — browsable, visual, built for how you spec.</h1>
-    <p class="lead">365 Technologies partners with automotive, agricultural, medical, and industrial equipment manufacturers to design the systems their products depend on. Browse what we build below.</p>
-    <div class="btn-row">
-      <a class="btn" href="/catalog">Browse the Catalog</a>
-      <a class="btn btn-outline" href="/contact-us">Get in Touch</a>
+    <h1>Find the gas spring, hydraulic, or pneumatic solution your application needs.</h1>
+    <p class="lead">365 Technologies designs for automotive, agricultural, medical, and industrial equipment manufacturers. Search the catalog or browse by discipline below — no pricing, just the engineering.</p>
+
+    <div class="hero-search">
+      <form action="/search" method="GET">
+        <input type="text" name="q" placeholder="Search products — e.g. &quot;gas spring&quot;, &quot;valve&quot;, &quot;pump&quot;" aria-label="Search the catalog">
+        <button type="submit">Search</button>
+      </form>
+      <div class="hero-search__hints">
+        Popular:
+        <% catalog.forEach(function (c, i) { %><a href="/catalog/<%= c.slug %>"><%= c.name %></a><%= i < catalog.length - 1 ? ' · ' : '' %><% }) %>
+      </div>
     </div>
   </div>
 </section>
@@ -16,8 +23,8 @@
   <div class="container">
     <div class="catalog-section__head">
       <div>
-        <span class="eyebrow">What We Build</span>
-        <h2>Three disciplines, one team</h2>
+        <span class="eyebrow">Browse by Discipline</span>
+        <h2>What we design</h2>
       </div>
       <a class="btn-ghost" href="/catalog">View full catalog →</a>
     </div>
@@ -25,9 +32,7 @@
     <div class="category-grid">
       <% catalog.forEach(function (c) { %>
         <a class="category-card" href="/catalog/<%= c.slug %>">
-          <div class="category-card__media">
-            <span class="category-card__tag"><%= c.name %></span>
-          </div>
+          <div class="category-card__media"><span>Image Placeholder</span></div>
           <div class="category-card__body">
             <h3><%= c.name %></h3>
             <p><%= c.tagline %></p>
@@ -35,21 +40,13 @@
           </div>
         </a>
       <% }) %>
+      <div class="placeholder-card">
+        <div class="placeholder-card__icon">+</div>
+        <h3>More Disciplines</h3>
+        <p>Coming soon as the catalog grows</p>
+      </div>
     </div>
   </div>
 </section>
-
-<section class="map-section">
-  <iframe src="<%= site.mapEmbed %>" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="365 Technologies location"></iframe>
-</section>
-
-<div class="cta-band">
-  <div class="container">
-    <span class="eyebrow">Let's Talk</span>
-    <h2>Have an application in mind?</h2>
-    <p>Tell us what you're building — we'll help scope the gas spring, hydraulic, or pneumatic system it needs.</p>
-    <a class="btn" href="/contact-us">Contact Us</a>
-  </div>
-</div>
 
 <%- include('partials/footer') %>
