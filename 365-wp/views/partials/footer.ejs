@@ -22,12 +22,11 @@
       </div>
 
       <div class="footer-col">
-        <h4>What We Do</h4>
+        <h4>Catalog</h4>
         <ul>
-          <li><a href="/what-we-do">Overview</a></li>
-          <li><a href="/gas-springs">Gas Springs</a></li>
-          <li><a href="/hydraulic-design">Hydraulic Design</a></li>
-          <li><a href="/pneumatic-design">Pneumatic Design</a></li>
+          <% catalog.forEach(function (c) { %>
+            <li><a href="/catalog/<%= c.slug %>"><%= c.name %></a></li>
+          <% }) %>
         </ul>
       </div>
 
@@ -35,7 +34,6 @@
         <h4>Company</h4>
         <ul>
           <li><a href="/who-we-are">Who We Are</a></li>
-          <li><a href="/applications">Applications</a></li>
           <li><a href="/contact-us">Contact Us</a></li>
         </ul>
       </div>

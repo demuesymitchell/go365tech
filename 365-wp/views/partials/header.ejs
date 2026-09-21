@@ -6,27 +6,11 @@
 <title><%= title %></title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <a class="skip-link" href="#primary">Skip to content</a>
-
-<div class="utility-bar">
-  <div class="container">
-    <div class="utility-bar__left">
-      <a href="tel:<%= site.phoneHref %>"><%= site.phone %></a>
-      <a href="mailto:<%= site.email %>"><%= site.email %></a>
-      <div class="utility-bar__social">
-        <a href="<%= site.social.facebook %>" aria-label="Facebook">f</a>
-        <a href="<%= site.social.instagram %>" aria-label="Instagram">ig</a>
-        <a href="<%= site.social.twitter %>" aria-label="Twitter/X">x</a>
-        <a href="<%= site.social.linkedin %>" aria-label="LinkedIn">in</a>
-      </div>
-    </div>
-    <a class="utility-bar__cta" href="/contact-us">Request a Quote →</a>
-  </div>
-</div>
 
 <header class="site-header">
   <div class="container site-header__inner">
@@ -42,27 +26,22 @@
     <nav id="primary-nav" class="primary-nav" aria-label="Primary">
       <ul>
         <li class="<%= active === 'home' ? 'is-active' : '' %>"><a href="/">Home</a></li>
-        <li class="has-children <%= active === 'what-we-do' ? 'is-active' : '' %>">
-          <a href="/what-we-do">What We Do</a>
+        <li class="has-children <%= active === 'catalog' ? 'is-active' : '' %>">
+          <a href="/catalog">Catalog</a>
           <ul class="sub-menu">
-            <li><a href="/gas-springs">Gas Springs</a></li>
-            <li><a href="/hydraulic-design">Hydraulic Design</a></li>
-            <li><a href="/pneumatic-design">Pneumatic Design</a></li>
+            <% catalog.forEach(function (c) { %>
+              <li><a href="/catalog/<%= c.slug %>"><%= c.name %></a></li>
+            <% }) %>
           </ul>
         </li>
-        <li class="<%= active === 'applications' ? 'is-active' : '' %>"><a href="/applications">Applications</a></li>
-        <li class="has-children <%= active === 'who-we-are' ? 'is-active' : '' %>">
-          <a href="/who-we-are">Who We Are</a>
-          <ul class="sub-menu">
-            <li><a href="/contact-us">Contact Us</a></li>
-          </ul>
-        </li>
+        <li class="<%= active === 'who-we-are' ? 'is-active' : '' %>"><a href="/who-we-are">Who We Are</a></li>
+        <li class="<%= active === 'contact-us' ? 'is-active' : '' %>"><a href="/contact-us">Contact</a></li>
       </ul>
     </nav>
 
     <div class="header-cta">
-      <a class="phone" href="tel:<%= site.phoneHref %>"><%= site.phone %></a>
-      <a class="btn" href="/contact-us">Contact</a>
+      <span class="phone"><%= site.phone %></span>
+      <a class="btn" href="/contact-us">Get in Touch</a>
     </div>
   </div>
 </header>

@@ -3,18 +3,19 @@
 <section class="page-header">
   <div class="container">
     <div class="breadcrumb"><a href="/">Home</a> / Contact Us</div>
+    <span class="eyebrow">Get in Touch</span>
     <h1>Contact Us</h1>
   </div>
 </section>
 
 <section class="page-content">
-  <div class="container">
+  <div class="container" style="max-width:1020px;">
     <div class="contact-grid">
-      <div class="entry-content">
+      <div>
         <% if (submitted) { %>
           <div class="notice notice-success">
             <span class="eyebrow">Message sent</span>
-            <p style="margin:0;">Thanks — your message has been sent. We'll get back to you shortly.</p>
+            <p style="margin:0;color:var(--text);">Thanks — your message has been sent. We'll get back to you shortly.</p>
           </div>
         <% } else { %>
           <% if (errors && errors.length) { %>

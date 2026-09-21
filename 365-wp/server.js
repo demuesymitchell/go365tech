@@ -10,7 +10,6 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
-// Shared site data available to every template.
 const site = {
   name: "365 Technologies",
   address1: "8531 S Fwy Dr",
@@ -28,48 +27,214 @@ const site = {
   },
 };
 
-function render(view, extra = {}) {
-  return (req, res) => res.render(view, { site, active: extra.active || "", title: extra.title });
+/**
+ * Catalog data — a visual browsing structure, deliberately with no price
+ * or cart fields. Categories map to 365's three real disciplines; the
+ * items inside each are generic, industry-standard product *types* (not
+ * fabricated model numbers or specs) meant to demonstrate the catalog
+ * layout. Swap in real SKUs/photos/specs when the actual catalog is
+ * ready — the structure won't need to change.
+ */
+const catalog = [
+  {
+    slug: "gas-springs",
+    name: "Gas Springs",
+    tagline: "Custom gas spring design, sometimes called \"gas shocks.\"",
+    description:
+      "Sometimes referred to as \"gas shocks,\" gas springs are a core part of the 365 Technologies proficiency. We're gas spring designers capable of producing the perfect custom component or product solution based on specifications and creative gas spring design.",
+    items: [
+      {
+        slug: "compression-gas-springs",
+        name: "Compression Gas Springs",
+        blurb: "Extend under load — the most common gas spring configuration, used to lift, support, or counterbalance.",
+        specs: [
+          ["Type", "Compression (extending)"],
+          ["Mounting", "Ball stud, eyelet, or custom to application"],
+          ["Stroke length", "Custom to application"],
+          ["Force range", "Custom to application"],
+        ],
+      },
+      {
+        slug: "tension-gas-springs",
+        name: "Tension Gas Springs",
+        blurb: "Retract under load — used where the spring needs to pull rather than push.",
+        specs: [
+          ["Type", "Tension (retracting)"],
+          ["Mounting", "Ball stud, eyelet, or custom to application"],
+          ["Stroke length", "Custom to application"],
+          ["Force range", "Custom to application"],
+        ],
+      },
+      {
+        slug: "locking-gas-springs",
+        name: "Locking Gas Springs",
+        blurb: "Hold position at any point in the stroke via a manual or push-button release mechanism.",
+        specs: [
+          ["Type", "Locking / position-hold"],
+          ["Release", "Manual lever or push-button"],
+          ["Stroke length", "Custom to application"],
+          ["Force range", "Custom to application"],
+        ],
+      },
+      {
+        slug: "custom-mounting-hardware",
+        name: "Custom Mounting Hardware",
+        blurb: "Ball studs, eyelets, and brackets engineered around your specific installation.",
+        specs: [
+          ["Type", "Mounting hardware"],
+          ["Material options", "Steel, stainless, custom"],
+          ["Compatibility", "Engineered to your assembly"],
+        ],
+      },
+    ],
+  },
+  {
+    slug: "hydraulic-design",
+    name: "Hydraulic Design",
+    tagline: "Full-capability hydraulic design, build, and service.",
+    description:
+      "365 Technologies offers a full capability suite of hydraulic design services. We build and fabricate hydraulics, offer educational instruction and continuing hydraulic education certifications. We also service hydraulic motors, hydraulic pumps, pistons, gears, vanes, modular pumps and hi-lo 2 stage gear pumps.",
+    items: [
+      {
+        slug: "hydraulic-motors",
+        name: "Hydraulic Motors",
+        blurb: "Converts hydraulic fluid power into rotational mechanical output.",
+        specs: [
+          ["Type", "Hydraulic motor"],
+          ["Configuration", "Custom to application"],
+          ["Service", "On-site troubleshooting available"],
+        ],
+      },
+      {
+        slug: "hydraulic-pumps",
+        name: "Hydraulic Pumps",
+        blurb: "Drives system flow — sized and specified around your circuit's demands.",
+        specs: [
+          ["Type", "Hydraulic pump"],
+          ["Configuration", "Custom to application"],
+          ["Service", "On-site troubleshooting available"],
+        ],
+      },
+      {
+        slug: "modular-gear-pumps",
+        name: "Modular & Hi-Lo 2-Stage Gear Pumps",
+        blurb: "Gear pump assemblies including hi-lo 2-stage configurations for dual-flow circuits.",
+        specs: [
+          ["Type", "Gear pump — modular / hi-lo 2-stage"],
+          ["Configuration", "Custom to application"],
+          ["Service", "On-site troubleshooting available"],
+        ],
+      },
+      {
+        slug: "pistons-gears-vanes",
+        name: "Pistons, Gears & Vanes",
+        blurb: "Core internal components serviced and specified as part of a full hydraulic system.",
+        specs: [
+          ["Type", "Piston / gear / vane components"],
+          ["Configuration", "Custom to application"],
+          ["Service", "On-site troubleshooting available"],
+        ],
+      },
+    ],
+  },
+  {
+    slug: "pneumatic-design",
+    name: "Pneumatic Design",
+    tagline: "From air prep hardware through valve-and-cylinder pairing.",
+    description:
+      "365 Technologies provides pneumatic system design support starting at the connection to a machine's air preparation hardware and continues to correctly pairing valves with cylinders to ensure safe machine operation. We also offer on-site troubleshooting and service across agriculture, automotive, aerial and lift trucks, patient handling, medical, and industrial markets.",
+    items: [
+      {
+        slug: "air-preparation-hardware",
+        name: "Air Preparation Hardware",
+        blurb: "Filters, regulators, and lubricators at the machine's air supply connection.",
+        specs: [
+          ["Type", "Air prep (FRL) hardware"],
+          ["Configuration", "Custom to application"],
+          ["Service", "On-site troubleshooting available"],
+        ],
+      },
+      {
+        slug: "pneumatic-valves",
+        name: "Pneumatic Valves",
+        blurb: "Directional control valves specified and paired to match cylinder requirements.",
+        specs: [
+          ["Type", "Pneumatic directional control valve"],
+          ["Configuration", "Custom to application"],
+          ["Service", "On-site troubleshooting available"],
+        ],
+      },
+      {
+        slug: "pneumatic-cylinders",
+        name: "Pneumatic Cylinders",
+        blurb: "Actuation components sized and paired with valves for safe machine operation.",
+        specs: [
+          ["Type", "Pneumatic cylinder"],
+          ["Configuration", "Custom to application"],
+          ["Service", "On-site troubleshooting available"],
+        ],
+      },
+    ],
+  },
+];
+
+function findCategory(slug) {
+  return catalog.find((c) => c.slug === slug);
+}
+function findItem(categorySlug, itemSlug) {
+  const cat = findCategory(categorySlug);
+  if (!cat) return { cat: null, item: null };
+  return { cat, item: cat.items.find((i) => i.slug === itemSlug) };
 }
 
-app.get("/", render("home", { active: "home", title: "365 Technologies" }));
+function base(extra = {}) {
+  return { site, catalog, active: extra.active || "", title: extra.title };
+}
 
-app.get(
-  "/what-we-do",
-  render("what-we-do", { active: "what-we-do", title: "What We Do — 365 Technologies" })
-);
-app.get(
-  "/gas-springs",
-  render("gas-springs", { active: "what-we-do", title: "Gas Springs — 365 Technologies" })
-);
-app.get(
-  "/hydraulic-design",
-  render("hydraulic-design", { active: "what-we-do", title: "Hydraulic Design — 365 Technologies" })
-);
-app.get(
-  "/pneumatic-design",
-  render("pneumatic-design", { active: "what-we-do", title: "Pneumatic Design — 365 Technologies" })
-);
+app.get("/", (req, res) => {
+  res.render("home", base({ active: "home", title: "365 Technologies" }));
+});
 
-app.get(
-  "/who-we-are",
-  render("who-we-are", { active: "who-we-are", title: "Who We Are — 365 Technologies" })
-);
+app.get("/catalog", (req, res) => {
+  res.render("catalog", base({ active: "catalog", title: "Catalog — 365 Technologies" }));
+});
 
-app.get(
-  "/applications",
-  render("applications", { active: "applications", title: "Applications — 365 Technologies" })
-);
+app.get("/catalog/:category", (req, res, next) => {
+  const cat = findCategory(req.params.category);
+  if (!cat) return next();
+  res.render(
+    "catalog-category",
+    Object.assign(base({ active: "catalog", title: `${cat.name} — 365 Technologies` }), { cat })
+  );
+});
+
+app.get("/catalog/:category/:item", (req, res, next) => {
+  const { cat, item } = findItem(req.params.category, req.params.item);
+  if (!cat || !item) return next();
+  const related = cat.items.filter((i) => i.slug !== item.slug).slice(0, 3);
+  res.render(
+    "catalog-product",
+    Object.assign(base({ active: "catalog", title: `${item.name} — 365 Technologies` }), {
+      cat,
+      item,
+      related,
+    })
+  );
+});
+
+app.get("/who-we-are", (req, res) => {
+  res.render("who-we-are", base({ active: "who-we-are", title: "Who We Are — 365 Technologies" }));
+});
 
 app.get("/contact-us", (req, res) => {
-  res.render("contact-us", {
-    site,
-    active: "contact-us",
-    title: "Contact Us — 365 Technologies",
-    submitted: false,
-    errors: [],
-    values: {},
-  });
+  res.render(
+    "contact-us",
+    Object.assign(base({ active: "contact-us", title: "Contact Us — 365 Technologies" }), {
+      submitted: false,
+      errors: [],
+      values: {},
+    })
+  );
 });
 
 app.post("/contact-us", async (req, res) => {
@@ -81,19 +246,16 @@ app.post("/contact-us", async (req, res) => {
   if (!message.trim()) errors.push("Please enter a message.");
 
   if (errors.length) {
-    return res.render("contact-us", {
-      site,
-      active: "contact-us",
-      title: "Contact Us — 365 Technologies",
-      submitted: false,
-      errors,
-      values: { first_name, last_name, email, subject, message },
-    });
+    return res.render(
+      "contact-us",
+      Object.assign(base({ active: "contact-us", title: "Contact Us — 365 Technologies" }), {
+        submitted: false,
+        errors,
+        values: { first_name, last_name, email, subject, message },
+      })
+    );
   }
 
-  // Email delivery only fires if SMTP env vars are set (see README). Without
-  // them the submission is just logged server-side so the form still works
-  // end-to-end on staging without requiring real credentials yet.
   try {
     if (process.env.SMTP_HOST) {
       const transporter = nodemailer.createTransport({
@@ -122,30 +284,29 @@ app.post("/contact-us", async (req, res) => {
       });
     }
 
-    res.render("contact-us", {
-      site,
-      active: "contact-us",
-      title: "Contact Us — 365 Technologies",
-      submitted: true,
-      errors: [],
-      values: {},
-    });
+    res.render(
+      "contact-us",
+      Object.assign(base({ active: "contact-us", title: "Contact Us — 365 Technologies" }), {
+        submitted: true,
+        errors: [],
+        values: {},
+      })
+    );
   } catch (err) {
     console.error("Contact form send failed:", err);
-    res.render("contact-us", {
-      site,
-      active: "contact-us",
-      title: "Contact Us — 365 Technologies",
-      submitted: false,
-      errors: [`Sorry — something went wrong sending your message. Please email us directly at ${site.email}.`],
-      values: { first_name, last_name, email, subject, message },
-    });
+    res.render(
+      "contact-us",
+      Object.assign(base({ active: "contact-us", title: "Contact Us — 365 Technologies" }), {
+        submitted: false,
+        errors: [`Sorry — something went wrong sending your message. Please email us directly at ${site.email}.`],
+        values: { first_name, last_name, email, subject, message },
+      })
+    );
   }
 });
 
-// Simple 404.
 app.use((req, res) => {
-  res.status(404).render("404", { site, active: "", title: "Page not found — 365 Technologies" });
+  res.status(404).render("404", base({ active: "", title: "Page not found — 365 Technologies" }));
 });
 
 app.listen(PORT, () => {

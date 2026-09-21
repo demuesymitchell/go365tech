@@ -1,0 +1,49 @@
+<%- include('partials/header') %>
+
+<section class="page-header" style="border-bottom:none;padding-bottom:0;">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / <a href="/catalog">Catalog</a> / <a href="/catalog/<%= cat.slug %>"><%= cat.name %></a> / <%= item.name %>
+    </div>
+  </div>
+</section>
+
+<section class="product-layout">
+  <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;">
+    <div class="product-media"><span><%= cat.name %></span></div>
+    <div>
+      <span class="eyebrow"><%= cat.name %></span>
+      <h1 style="font-size:clamp(2rem, 4vw, 2.6rem);"><%= item.name %></h1>
+      <p class="lead" style="font-size:1.05rem;"><%= item.blurb %></p>
+
+      <table class="spec-table">
+        <% item.specs.forEach(function (row) { %>
+          <tr><td><%= row[0] %></td><td><%= row[1] %></td></tr>
+        <% }) %>
+      </table>
+
+      <a class="btn" href="/contact-us">Discuss This Application</a>
+    </div>
+  </div>
+</section>
+
+<% if (related.length) { %>
+<section class="related-strip">
+  <div class="container">
+    <h2>More in <%= cat.name %></h2>
+    <div class="item-grid">
+      <% related.forEach(function (r) { %>
+        <a class="item-card" href="/catalog/<%= cat.slug %>/<%= r.slug %>">
+          <div class="item-card__media"><span><%= cat.name %></span></div>
+          <div class="item-card__body">
+            <h3><%= r.name %></h3>
+            <p><%= r.blurb %></p>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<%- include('partials/footer') %>

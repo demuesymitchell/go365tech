@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> / Catalog</div>
+    <span class="eyebrow">Design Catalog</span>
+    <h1>Browse by discipline</h1>
+    <p class="lead">A visual look at what 365 Technologies designs and builds. No pricing, no cart — just the work, organized the way we think about it.</p>
+  </div>
+</section>
+
+<section class="catalog-section">
+  <div class="container">
+    <div class="category-grid">
+      <% catalog.forEach(function (c) { %>
+        <a class="category-card" href="/catalog/<%= c.slug %>">
+          <div class="category-card__media">
+            <span class="category-card__tag"><%= c.name %></span>
+          </div>
+          <div class="category-card__body">
+            <h3><%= c.name %></h3>
+            <p><%= c.tagline %></p>
+            <span class="category-card__count"><%= c.items.length %> in catalog →</span>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

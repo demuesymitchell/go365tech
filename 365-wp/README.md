@@ -1,125 +1,104 @@
-# 365 Technologies — staging site (Railway, no Docker/WordPress)
+# 365 Technologies — Catalog Site (Railway, Node/Express)
 
-Plain Node.js + Express + EJS. No database, no PHP, no Apache, no Docker
-layer to fight with — this is Railway's most reliable deploy path
+A dark, modern, catalog-first rebuild. No WordPress, no Docker, no
+pricing, no cart — this is a visual browsing experience for what 365
+Technologies designs, styled with design cues pulled from anfieldind.com
+and grhamerica.com (bold hero, image-forward category/product grids, spec
+tables, CTA bands) but with its own distinct look: dark background,
+Space Grotesk display type, orange/teal accent, glow gradients, hover-
+elevated cards.
+
+Plain Node.js + Express + EJS — Railway's most reliable deploy path
 (auto-detects `package.json`, runs `npm install` then `npm start`).
 
-This is **not** WordPress. It's a fast, tangible staging build to present
-now. Converting it into the WordPress theme is a separate, later step —
-the page structure, copy, and design here are exactly what that theme
-gets built from, so nothing here is wasted work.
-
-## Design direction
-
-The visual language borrows deliberately from the two reference sites
-(anfieldind.com, grhamerica.com) rather than the old default-WordPress-theme
-look:
-
-- A dark **utility bar** above the main nav (phone/email/social + a
-  standing "Request a Quote" CTA) — matches Anfield's header pattern.
-- A bold **stat band** right under the hero, using facts 365 already
-  states about itself (50+ years combined experience, 3 core disciplines,
-  4 markets served) — no invented numbers, styled like GRH's proof band.
-- A 3-column **"Why 365 Technologies" trust section** — mirrors Anfield's
-  "Why people choose us."
-- An **Applications** page/section (new) — a real page using markets 365
-  already claims to serve (automotive, agricultural, medical, industrial),
-  styled as an icon-tile grid like GRH's application category grid.
-- A dark **CTA band** before the footer and a **floating quick-contact
-  widget** (call/email) — both patterns lifted from GRH.
-- Heavier type (Inter, 800-weight headlines), a punchier accent color, and
-  card hover elevation throughout instead of flat text blocks.
-
-## What's in here
+## Structure
 
 ```
 365-static/
 ├── package.json
-├── server.js              # Express app: routes, contact form handling
-├── railway.json             # pins the Node builder + start command
+├── server.js                 # catalog data model + all routes
+├── railway.json
 ├── public/
-│   ├── css/style.css
+│   ├── css/style.css          # dark theme, catalog grids, spec tables
 │   └── js/main.js
 └── views/
     ├── partials/
-    │   ├── header.ejs       # nav, logo, header CTA
-    │   └── footer.ejs       # contact/social/quick links
-    ├── home.ejs
-    ├── what-we-do.ejs
-    ├── gas-springs.ejs
-    ├── hydraulic-design.ejs
-    ├── pneumatic-design.ejs
+    │   ├── header.ejs          # nav w/ Catalog dropdown (data-driven)
+    │   └── footer.ejs
+    ├── home.ejs                 # hero + category preview grid
+    ├── catalog.ejs                # all categories
+    ├── catalog-category.ejs        # items grid within a category
+    ├── catalog-product.ejs          # spec table, no price, related items
     ├── who-we-are.ejs
-    ├── applications.ejs     # new — markets served, icon-tile grid
-    ├── contact-us.ejs       # real working form
+    ├── contact-us.ejs                # real working form
     └── 404.ejs
 ```
 
-## 1. Test locally first (2 minutes, no Docker needed)
+## The catalog
+
+`server.js` holds the catalog as plain JS data — three categories
+matching 365's real disciplines (Gas Springs, Hydraulic Design, Pneumatic
+Design), each with a handful of items. The category descriptions are
+365's real copy. The **items within each category are generic,
+industry-standard product types** (e.g. "Compression Gas Springs,"
+"Hydraulic Motors") — not real SKUs, not fabricated model numbers — built
+to demonstrate the catalog layout with something more honest than
+Lorem Ipsum. Specs are placeholder fields ("Custom to application")
+rather than invented numbers.
+
+**To swap in the real catalog:** edit the `catalog` array in `server.js`.
+Each item is:
+
+```js
+{
+  slug: "compression-gas-springs",
+  name: "Compression Gas Springs",
+  blurb: "One line, shown on the card and category page.",
+  specs: [["Field label", "Value"], ["Another field", "Value"]],
+}
+```
+
+No template changes needed — add/remove/edit items and the grids, detail
+pages, and related-items strips update automatically.
+
+## Run locally
 
 ```bash
 npm install
 npm start
 ```
 
-Visit `http://localhost:3000`. If anything's broken, you'll see it
-immediately in the terminal instead of in a Railway build log.
+Visit `http://localhost:3000`.
 
-## 2. Push to GitHub, deploy on Railway
+## Deploy to Railway
 
-1. If you're replacing the old WordPress attempt in the same Railway
-   service: delete the old `Dockerfile` and `wp-content/` etc. from the
-   repo (or just point this at a **new** Railway service — cleaner, and
-   keeps the old attempt around for reference if you want it later).
-2. `git add . && git commit -m "365 Technologies staging site (Node/Express)"`, push.
-3. Railway → **New Project → Deploy from GitHub repo** (or, if reusing
-   the existing service, just push — it'll redeploy automatically).
-   Railway will detect Node via `package.json` and build with Nixpacks —
-   no Dockerfile needed, no MPM/Apache config to fight with.
-4. **Settings → Networking → Generate Domain.** Railway's Node builder
-   sets `PORT` automatically and this app reads `process.env.PORT`, so no
-   port configuration needed on your end.
-5. Deploy. That's it — no database to provision, no install wizard to run.
+Same as before: push to GitHub, Railway auto-detects Node via
+`package.json`, generates a domain under Settings → Networking. No
+database, no install wizard, no Dockerfile.
 
-## 3. The contact form
+## Contact form
 
-`/contact-us` is a real form (First/Last name, Email, Subject, Message)
-that posts to itself and validates server-side. By default — with no
-extra configuration — submissions are just logged server-side (visible in
-Railway's deploy/runtime logs) and the visitor still sees a normal success
-message, so the form works end-to-end on staging right now.
+`/contact-us` posts to itself, validates server-side, and — once
+`SMTP_HOST` (and related `SMTP_*` vars) are set on the Railway service —
+emails submissions to `info@go365tech.com` via `wp_mail`-style SMTP send
+through Nodemailer. Without SMTP configured, submissions are logged
+server-side and the visitor still sees a normal success state, so the
+form works end-to-end on staging right now.
 
-To make it actually **send email**, set these variables on the Railway
-service (Variables tab) — any standard SMTP provider works (Gmail app
-password, Postmark, SendGrid SMTP, etc.):
+## What still needs real input
 
-```
-SMTP_HOST = smtp.yourprovider.com
-SMTP_PORT = 587
-SMTP_SECURE = false
-SMTP_USER = your-smtp-username
-SMTP_PASS = your-smtp-password
-SMTP_FROM = "365 Technologies Website" <info@go365tech.com>
-```
+- **Images** — every media slot (category tiles, item cards, product
+  hero) is a gradient placeholder with a text label. Drop real photos
+  into `public/img/` and swap the placeholder `<div>`/`<span>` for an
+  `<img>` in the relevant template, or send me the files.
+- **Real catalog data** — replace the placeholder items/specs in
+  `server.js` with actual SKUs, photos, and specs when ready.
+- **Logo** — currently a plain "365" mark in CSS.
+- **SMTP credentials** — for the contact form to actually deliver email.
 
-Once `SMTP_HOST` is set, submissions email straight to `info@go365tech.com`
-with reply-to set to whoever filled out the form.
+## Converting to WordPress later
 
-## 4. What still needs your input
-
-- **Images** — every photo slot (`feature-row__media`) is a labeled
-  placeholder block, same as before. Drop real images into `public/img/`
-  and swap the placeholder `<div>` for an `<img>` tag in the relevant
-  `.ejs` file, or send me the files and I'll wire them in.
-- **Logo** — currently a plain circular "365" mark in CSS. Swap for the
-  real logo file the same way.
-- **SMTP credentials** — for the contact form to actually deliver email
-  (see above).
-
-## 5. Converting this to WordPress later
-
-When you're ready: the page structure (What We Do → 3 sub-pages, Who We
-Are, Contact Us), the exact copy, and the design/CSS here map directly
-onto WordPress page templates and a `functions.php`/theme build — this
-site *is* the spec for that theme. That conversion is a separate,
-scoped task whenever you want to kick it off.
+This stays a separate, later step. The catalog's data shape (categories
+→ items → specs) maps cleanly onto a WordPress custom post type +
+taxonomy setup when that conversion happens — nothing here needs to be
+rebuilt from scratch for it.
