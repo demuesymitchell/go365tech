@@ -264,9 +264,10 @@ p { margin: 0 0 1.1em; color: var(--text-dim); }
 .catalog-section__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 36px; flex-wrap: wrap; }
 .catalog-section__head h2 { margin-bottom: 0; }
 
-.category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; min-width: 0; }
 .category-card {
   display: block;
+  min-width: 0;
   border-radius: var(--radius);
   overflow: hidden;
   background: #fff;
@@ -299,9 +300,10 @@ p { margin: 0 0 1.1em; color: var(--text-dim); }
 .category-card__body p { font-size: 0.92rem; margin-bottom: 14px; }
 .category-card__count { font-size: 0.78rem; color: var(--accent); font-weight: 700; }
 
-.item-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.item-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; min-width: 0; }
 .item-card {
   display: block;
+  min-width: 0;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -333,6 +335,7 @@ p { margin: 0 0 1.1em; color: var(--text-dim); }
 
 /* Placeholder / "coming soon" tiles — same grid, dashed, non-interactive */
 .placeholder-card {
+  min-width: 0;
   border: 1.5px dashed var(--line-strong);
   border-radius: var(--radius);
   background: var(--bg-alt);
@@ -422,7 +425,7 @@ p { margin: 0 0 1.1em; color: var(--text-dim); }
 .catalog-sidebar__items li a:hover { color: var(--accent); background: var(--bg-alt); }
 .catalog-sidebar__items li a.is-current { color: var(--accent); font-weight: 700; background: var(--accent-soft); }
 
-.catalog-content { padding: 30px 32px 40px; }
+.catalog-content { padding: 30px 32px 40px; min-width: 0; }
 .catalog-content__head { margin-bottom: 24px; }
 .catalog-content__head h1 { font-size: clamp(1.7rem, 3vw, 2.2rem); margin-bottom: 8px; }
 .catalog-content__head p { max-width: 640px; font-size: 0.98rem; margin-bottom: 0; }
