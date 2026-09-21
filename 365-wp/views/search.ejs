@@ -1,42 +1,47 @@
 <%- include('partials/header') %>
 
-<section class="page-header">
-  <div class="container">
-    <div class="breadcrumb"><a href="/">Home</a> / Search</div>
-    <span class="eyebrow">Catalog Search</span>
-    <h1><%= query ? `Results for "${query}"` : 'Search the catalog' %></h1>
-  </div>
-</section>
+<div class="container">
+  <div class="catalog-shell">
+    <div class="catalog-shell__crumb">
+      <a href="/">Home</a> » <span class="current">Search</span>
+    </div>
+    <div class="catalog-layout">
+      <%- include('partials/catalog-sidebar') %>
 
-<section class="catalog-section">
-  <div class="container">
-    <% if (!query) { %>
-      <div class="search-empty">
-        <h2>Search across every category</h2>
-        <p>Try a product type like "gas spring," "valve," "pump," or "motor."</p>
+      <div class="catalog-content">
+        <div class="catalog-content__head">
+          <span class="eyebrow">Catalog Search</span>
+          <h1><%= query ? `Results for "${query}"` : 'Search the catalog' %></h1>
+        </div>
+
+        <% if (!query) { %>
+          <div class="search-empty">
+            <h2>Search across every category</h2>
+            <p>Try a product type like "gas spring," "valve," "pump," or "motor."</p>
+          </div>
+        <% } else if (results.length === 0) { %>
+          <div class="search-empty">
+            <h2>No matches for "<%= query %>"</h2>
+            <p>Try a different term, or pick a category on the left.</p>
+          </div>
+        <% } else { %>
+          <p class="search-summary"><strong><%= results.length %></strong> result<%= results.length === 1 ? '' : 's' %> for "<strong><%= query %></strong>"</p>
+          <div class="item-grid">
+            <% results.forEach(function (item) { %>
+              <a class="item-card" href="/catalog/<%= item.categorySlug %>/<%= item.slug %>">
+                <div class="item-card__media"><span>Image Placeholder</span></div>
+                <div class="item-card__body">
+                  <span class="item-card__cat"><%= item.categoryName %></span>
+                  <h3><%= item.name %></h3>
+                  <p><%= item.blurb %></p>
+                </div>
+              </a>
+            <% }) %>
+          </div>
+        <% } %>
       </div>
-    <% } else if (results.length === 0) { %>
-      <div class="search-empty">
-        <h2>No matches for "<%= query %>"</h2>
-        <p>Try a different term, or browse the full catalog below.</p>
-        <a class="btn" href="/catalog" style="margin-top:10px;">Browse Catalog</a>
-      </div>
-    <% } else { %>
-      <p class="search-summary"><strong><%= results.length %></strong> result<%= results.length === 1 ? '' : 's' %> for "<strong><%= query %></strong>"</p>
-      <div class="item-grid">
-        <% results.forEach(function (item) { %>
-          <a class="item-card" href="/catalog/<%= item.categorySlug %>/<%= item.slug %>">
-            <div class="item-card__media"><span>Image Placeholder</span></div>
-            <div class="item-card__body">
-              <span class="item-card__cat"><%= item.categoryName %></span>
-              <h3><%= item.name %></h3>
-              <p><%= item.blurb %></p>
-            </div>
-          </a>
-        <% }) %>
-      </div>
-    <% } %>
+    </div>
   </div>
-</section>
+</div>
 
 <%- include('partials/footer') %>

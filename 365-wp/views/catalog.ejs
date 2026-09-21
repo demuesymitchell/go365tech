@@ -1,34 +1,40 @@
 <%- include('partials/header') %>
 
-<section class="page-header">
-  <div class="container">
-    <div class="breadcrumb"><a href="/">Home</a> / Catalog</div>
-    <span class="eyebrow">Design Catalog</span>
-    <h1>Browse by discipline</h1>
-    <p class="lead">A visual look at what 365 Technologies designs and builds. No pricing, no cart — just the work, organized the way we think about it. Use the search bar above to find something specific.</p>
-  </div>
-</section>
+<div class="container">
+  <div class="catalog-shell">
+    <div class="catalog-shell__crumb">
+      <a href="/">Home</a> » <span class="current">Catalog</span>
+    </div>
+    <div class="catalog-layout">
+      <%- include('partials/catalog-sidebar') %>
 
-<section class="catalog-section">
-  <div class="container">
-    <div class="category-grid">
-      <% catalog.forEach(function (c) { %>
-        <a class="category-card" href="/catalog/<%= c.slug %>">
-          <div class="category-card__media"><span>Image Placeholder</span></div>
-          <div class="category-card__body">
-            <h3><%= c.name %></h3>
-            <p><%= c.tagline %></p>
-            <span class="category-card__count"><%= c.items.length %> in catalog →</span>
+      <div class="catalog-content">
+        <div class="catalog-content__head">
+          <span class="eyebrow">Design Catalog</span>
+          <h1>Browse by discipline</h1>
+          <p>A visual look at what 365 Technologies designs and builds. No pricing, no cart — just the work. Use the search bar above to find something specific, or pick a category from the left.</p>
+        </div>
+
+        <div class="category-grid">
+          <% catalog.forEach(function (c) { %>
+            <a class="category-card" href="/catalog/<%= c.slug %>">
+              <div class="category-card__media"><span>Image Placeholder</span></div>
+              <div class="category-card__body">
+                <h3><%= c.name %></h3>
+                <p><%= c.tagline %></p>
+                <span class="category-card__count"><%= c.items.length %> in catalog →</span>
+              </div>
+            </a>
+          <% }) %>
+          <div class="placeholder-card">
+            <div class="placeholder-card__icon">+</div>
+            <h3>More Disciplines</h3>
+            <p>Coming soon as the catalog grows</p>
           </div>
-        </a>
-      <% }) %>
-      <div class="placeholder-card">
-        <div class="placeholder-card__icon">+</div>
-        <h3>More Disciplines</h3>
-        <p>Coming soon as the catalog grows</p>
+        </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <%- include('partials/footer') %>

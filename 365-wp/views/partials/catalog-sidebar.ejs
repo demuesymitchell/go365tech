@@ -1,0 +1,19 @@
+<aside class="catalog-sidebar">
+  <div class="catalog-sidebar__header">Products</div>
+  <% catalog.forEach(function (c) { %>
+    <% var isActiveCat = (typeof activeCatSlug !== 'undefined' && activeCatSlug === c.slug); %>
+    <details class="catalog-sidebar__group" <%= isActiveCat ? 'open' : '' %>>
+      <summary>
+        <span><%= c.name %></span>
+        <span class="chev">▾</span>
+      </summary>
+      <ul class="catalog-sidebar__items">
+        <% c.items.forEach(function (i) { %>
+          <% var isCurrentItem = isActiveCat && typeof activeItemSlug !== 'undefined' && activeItemSlug === i.slug; %>
+          <li><a class="<%= isCurrentItem ? 'is-current' : '' %>" href="/catalog/<%= c.slug %>/<%= i.slug %>"><%= i.name %></a></li>
+        <% }) %>
+        <li><a href="/catalog/<%= c.slug %>" style="font-weight:700;color:var(--accent);">View all <%= c.name %> →</a></li>
+      </ul>
+    </details>
+  <% }) %>
+</aside>

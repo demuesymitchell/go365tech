@@ -1,33 +1,40 @@
 <%- include('partials/header') %>
 
-<section class="page-header">
-  <div class="container">
-    <div class="breadcrumb"><a href="/">Home</a> / <a href="/catalog">Catalog</a> / <%= cat.name %></div>
-    <span class="eyebrow"><%= cat.items.length %> in catalog</span>
-    <h1><%= cat.name %></h1>
-    <p class="lead"><%= cat.description %></p>
-  </div>
-</section>
+<div class="container">
+  <div class="catalog-shell">
+    <div class="catalog-shell__crumb">
+      <a href="/">Home</a> » <a href="/catalog">Catalog</a> » <span class="current"><%= cat.name %></span>
+    </div>
+    <div class="catalog-layout">
+      <% var activeCatSlug = cat.slug; %>
+      <%- include('partials/catalog-sidebar') %>
 
-<section class="catalog-section">
-  <div class="container">
-    <div class="item-grid">
-      <% cat.items.forEach(function (item) { %>
-        <a class="item-card" href="/catalog/<%= cat.slug %>/<%= item.slug %>">
-          <div class="item-card__media"><span>Image Placeholder</span></div>
-          <div class="item-card__body">
-            <h3><%= item.name %></h3>
-            <p><%= item.blurb %></p>
+      <div class="catalog-content">
+        <div class="catalog-content__head">
+          <span class="eyebrow"><%= cat.items.length %> in catalog</span>
+          <h1><%= cat.name %></h1>
+          <p><%= cat.description %></p>
+        </div>
+
+        <div class="item-grid">
+          <% cat.items.forEach(function (item) { %>
+            <a class="item-card" href="/catalog/<%= cat.slug %>/<%= item.slug %>">
+              <div class="item-card__media"><span>Image Placeholder</span></div>
+              <div class="item-card__body">
+                <h3><%= item.name %></h3>
+                <p><%= item.blurb %></p>
+              </div>
+            </a>
+          <% }) %>
+          <div class="placeholder-card">
+            <div class="placeholder-card__icon">+</div>
+            <h3>More Items</h3>
+            <p>Coming soon in this category</p>
           </div>
-        </a>
-      <% }) %>
-      <div class="placeholder-card">
-        <div class="placeholder-card__icon">+</div>
-        <h3>More Items</h3>
-        <p>Coming soon in this category</p>
+        </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <%- include('partials/footer') %>

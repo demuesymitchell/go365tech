@@ -7,26 +7,21 @@ most reliable deploy path (auto-detects `package.json`, runs
 
 ## What changed in this pass
 
-- **Search.** A search bar lives in the header on every page and again,
-  larger, in the homepage hero. It queries `/search?q=...` across every
-  item in every category (name, description, and category all match) and
-  returns a results grid — the catalog is now fully searchable, not just
-  browsable by clicking through categories.
-- **Home page rebuilt.** Search-forward hero, then a category grid. No
-  stat bands, no CTA bands, no map. Much leaner.
-- **Map moved.** The Google Maps embed now lives in exactly one place —
-  inside the contact card on `/contact-us` — instead of repeating on
-  every page's footer.
-- **Footer slimmed down.** Logo, four nav links, social icons, copyright.
-  No address, no map, no duplicated content — that's what the Contact
-  page is for.
-- **New palette.** White background, blue accent (`#2f5fe8`), silver/gray
-  neutrals throughout — replaces the previous dark theme entirely.
-- **Explicit placeholders.** Every image slot is a dashed-border tile
-  labeled "Image Placeholder" rather than a decorative gradient trying to
-  pass as a real photo. Category and item grids each end with a dashed
-  "+ More coming soon" tile, so the catalog visibly reads as a
-  work-in-progress structure rather than a finished, padded-out site.
+- **Footer sticky-to-bottom fixed.** `body` is now a flex column with
+  `main` set to `flex: 1 0 auto`, so on short pages the footer sits at
+  the bottom of the viewport instead of floating up under the content.
+- **Catalog pages now use a left sidebar product tree**, matching
+  Anfield's layout: a "Products" header, each category as a collapsible
+  group (`<details>/<summary>`, no JS required), sub-items listed under
+  the active category, current item highlighted. This replaces the
+  previous full-width-grid-only catalog pages. Applies to `/catalog`,
+  every category page, every product page, and `/search` — all four now
+  share `views/partials/catalog-sidebar.ejs`.
+- **Content sits in a rounded white "shell" card** with its own
+  breadcrumb bar at the top (`»`-separated, matching the reference), sitting
+  on the page's light gray background — instead of breadcrumb + content
+  running edge-to-edge.
+
 
 ## Structure
 
@@ -41,7 +36,8 @@ most reliable deploy path (auto-detects `package.json`, runs
 └── views/
     ├── partials/
     │   ├── header.ejs          # nav + search bar
-    │   └── footer.ejs           # slim — no map, no address
+    │   ├── footer.ejs           # slim — no map, no address
+    │   └── catalog-sidebar.ejs   # left product-tree sidebar, shared by all catalog/search pages
     ├── home.ejs                  # search-forward hero + category grid
     ├── catalog.ejs                 # all categories
     ├── catalog-category.ejs         # items grid within a category
