@@ -56,6 +56,11 @@ app.get(
   render("who-we-are", { active: "who-we-are", title: "Who We Are — 365 Technologies" })
 );
 
+app.get(
+  "/applications",
+  render("applications", { active: "applications", title: "Applications — 365 Technologies" })
+);
+
 app.get("/contact-us", (req, res) => {
   res.render("contact-us", {
     site,

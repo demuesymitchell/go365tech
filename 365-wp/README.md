@@ -9,6 +9,27 @@ now. Converting it into the WordPress theme is a separate, later step —
 the page structure, copy, and design here are exactly what that theme
 gets built from, so nothing here is wasted work.
 
+## Design direction
+
+The visual language borrows deliberately from the two reference sites
+(anfieldind.com, grhamerica.com) rather than the old default-WordPress-theme
+look:
+
+- A dark **utility bar** above the main nav (phone/email/social + a
+  standing "Request a Quote" CTA) — matches Anfield's header pattern.
+- A bold **stat band** right under the hero, using facts 365 already
+  states about itself (50+ years combined experience, 3 core disciplines,
+  4 markets served) — no invented numbers, styled like GRH's proof band.
+- A 3-column **"Why 365 Technologies" trust section** — mirrors Anfield's
+  "Why people choose us."
+- An **Applications** page/section (new) — a real page using markets 365
+  already claims to serve (automotive, agricultural, medical, industrial),
+  styled as an icon-tile grid like GRH's application category grid.
+- A dark **CTA band** before the footer and a **floating quick-contact
+  widget** (call/email) — both patterns lifted from GRH.
+- Heavier type (Inter, 800-weight headlines), a punchier accent color, and
+  card hover elevation throughout instead of flat text blocks.
+
 ## What's in here
 
 ```
@@ -29,6 +50,7 @@ gets built from, so nothing here is wasted work.
     ├── hydraulic-design.ejs
     ├── pneumatic-design.ejs
     ├── who-we-are.ejs
+    ├── applications.ejs     # new — markets served, icon-tile grid
     ├── contact-us.ejs       # real working form
     └── 404.ejs
 ```

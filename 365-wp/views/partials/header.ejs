@@ -4,10 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><%= title %></title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <a class="skip-link" href="#primary">Skip to content</a>
+
+<div class="utility-bar">
+  <div class="container">
+    <div class="utility-bar__left">
+      <a href="tel:<%= site.phoneHref %>"><%= site.phone %></a>
+      <a href="mailto:<%= site.email %>"><%= site.email %></a>
+      <div class="utility-bar__social">
+        <a href="<%= site.social.facebook %>" aria-label="Facebook">f</a>
+        <a href="<%= site.social.instagram %>" aria-label="Instagram">ig</a>
+        <a href="<%= site.social.twitter %>" aria-label="Twitter/X">x</a>
+        <a href="<%= site.social.linkedin %>" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
+    <a class="utility-bar__cta" href="/contact-us">Request a Quote →</a>
+  </div>
+</div>
 
 <header class="site-header">
   <div class="container site-header__inner">
@@ -31,6 +50,7 @@
             <li><a href="/pneumatic-design">Pneumatic Design</a></li>
           </ul>
         </li>
+        <li class="<%= active === 'applications' ? 'is-active' : '' %>"><a href="/applications">Applications</a></li>
         <li class="has-children <%= active === 'who-we-are' ? 'is-active' : '' %>">
           <a href="/who-we-are">Who We Are</a>
           <ul class="sub-menu">
