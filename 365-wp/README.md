@@ -7,6 +7,18 @@ most reliable deploy path (auto-detects `package.json`, runs
 
 ## What changed in this pass
 
+- **Hero background video is live.** Your `wave-placeholder.mp4` is in
+  the project at `public/video/hero-background.mp4`, re-encoded for the
+  web: downscaled from 4K to 1080p, H.264 CRF 26, audio track stripped,
+  `faststart` enabled — went from 68 MB down to 5.7 MB with no visible
+  quality loss (it's dimmed under the hero overlay anyway, so the extra
+  4K detail wasn't doing anything). At 68 MB it would have stalled or
+  never autoplayed at all on a phone connection; at 5.7 MB it loads and
+  loops smoothly.
+- **Added a poster frame** (`hero-poster.jpg`, the video's first frame)
+  so the hero shows the wave instantly on load instead of a blank flash
+  while the video file is still downloading.
+
 - **Fixed a real mobile bug on product pages**: the image + spec table
   layout was hard-coded as a 2-column grid with no responsive rule at
   all (leftover from an earlier redesign), so on a phone it squeezed
@@ -180,8 +192,6 @@ sees a normal success state.
 
 ## What still needs real input
 
-- **Hero background video** — drop `hero-background.mp4` into
-  `public/video/` (see the README there). Nothing else to configure.
 - **Images** — every "Image Placeholder" tile needs a real photo. Drop
   files into `public/img/` and swap the placeholder `<span>` for an
   `<img>` in the relevant template, or send me the files.
