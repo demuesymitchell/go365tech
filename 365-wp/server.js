@@ -39,17 +39,17 @@ const catalog = [
   {
     slug: "gas-springs",
     name: "Gas Springs",
-    tagline: "Placeholder tagline — final copy coming soon.",
+    tagline: "Custom gas spring design, sometimes called \"gas shocks.\"",
     description:
-      "Placeholder category description. Final copy for Gas Springs will go here once available.",
+      "Sometimes referred to as \"gas shocks,\" gas springs are a core part of the 365 Technologies proficiency. We're gas spring designers capable of producing the perfect custom component or product solution based on specifications and creative gas spring design.",
     items: [
       {
         slug: "compression-gas-springs",
         name: "Compression Gas Springs",
-        blurb: "Placeholder product description — final copy coming soon.",
+        blurb: "Extend under load — the most common gas spring configuration, used to lift, support, or counterbalance.",
         specs: [
-          ["Type", "Custom to application"],
-          ["Mounting", "Custom to application"],
+          ["Type", "Compression (extending)"],
+          ["Mounting", "Ball stud, eyelet, or custom to application"],
           ["Stroke length", "Custom to application"],
           ["Force range", "Custom to application"],
         ],
@@ -57,10 +57,10 @@ const catalog = [
       {
         slug: "tension-gas-springs",
         name: "Tension Gas Springs",
-        blurb: "Placeholder product description — final copy coming soon.",
+        blurb: "Retract under load — used where the spring needs to pull rather than push.",
         specs: [
-          ["Type", "Custom to application"],
-          ["Mounting", "Custom to application"],
+          ["Type", "Tension (retracting)"],
+          ["Mounting", "Ball stud, eyelet, or custom to application"],
           ["Stroke length", "Custom to application"],
           ["Force range", "Custom to application"],
         ],
@@ -68,10 +68,10 @@ const catalog = [
       {
         slug: "locking-gas-springs",
         name: "Locking Gas Springs",
-        blurb: "Placeholder product description — final copy coming soon.",
+        blurb: "Hold position at any point in the stroke via a manual or push-button release mechanism.",
         specs: [
-          ["Type", "Custom to application"],
-          ["Release", "Custom to application"],
+          ["Type", "Locking / position-hold"],
+          ["Release", "Manual lever or push-button"],
           ["Stroke length", "Custom to application"],
           ["Force range", "Custom to application"],
         ],
@@ -79,11 +79,11 @@ const catalog = [
       {
         slug: "custom-mounting-hardware",
         name: "Custom Mounting Hardware",
-        blurb: "Placeholder product description — final copy coming soon.",
+        blurb: "Ball studs, eyelets, and brackets engineered around your specific installation.",
         specs: [
-          ["Type", "Custom to application"],
-          ["Material options", "Custom to application"],
-          ["Compatibility", "Custom to application"],
+          ["Type", "Mounting hardware"],
+          ["Material options", "Steel, stainless, custom"],
+          ["Compatibility", "Engineered to your assembly"],
         ],
       },
     ],
@@ -91,48 +91,44 @@ const catalog = [
   {
     slug: "hydraulic-design",
     name: "Hydraulic Design",
-    tagline: "Placeholder tagline — final copy coming soon.",
+    tagline: "Full-capability hydraulic design, build, and service.",
     description:
-      "Placeholder category description. Final copy for Hydraulic Design will go here once available.",
+      "365 Technologies offers a full capability suite of hydraulic design services. We build and fabricate hydraulics, offer educational instruction and continuing hydraulic education certifications. We also service hydraulic motors, hydraulic pumps, pistons, gears, vanes, modular pumps and hi-lo 2 stage gear pumps.",
     items: [
       {
         slug: "hydraulic-motors",
         name: "Hydraulic Motors",
-        blurb: "Placeholder product description — final copy coming soon.",
+        blurb: "Converts hydraulic fluid power into rotational mechanical output.",
         specs: [
-          ["Type", "Custom to application"],
+          ["Type", "Hydraulic motor"],
           ["Configuration", "Custom to application"],
-          ["Service", "Custom to application"],
         ],
       },
       {
         slug: "hydraulic-pumps",
         name: "Hydraulic Pumps",
-        blurb: "Placeholder product description — final copy coming soon.",
+        blurb: "Drives system flow — sized and specified around your circuit's demands.",
         specs: [
-          ["Type", "Custom to application"],
+          ["Type", "Hydraulic pump"],
           ["Configuration", "Custom to application"],
-          ["Service", "Custom to application"],
         ],
       },
       {
         slug: "modular-gear-pumps",
         name: "Modular & Hi-Lo 2-Stage Gear Pumps",
-        blurb: "Placeholder product description — final copy coming soon.",
+        blurb: "Gear pump assemblies including hi-lo 2-stage configurations for dual-flow circuits.",
         specs: [
-          ["Type", "Custom to application"],
+          ["Type", "Gear pump — modular / hi-lo 2-stage"],
           ["Configuration", "Custom to application"],
-          ["Service", "Custom to application"],
         ],
       },
       {
         slug: "pistons-gears-vanes",
         name: "Pistons, Gears & Vanes",
-        blurb: "Placeholder product description — final copy coming soon.",
+        blurb: "Core internal components serviced and specified as part of a full hydraulic system.",
         specs: [
-          ["Type", "Custom to application"],
+          ["Type", "Piston / gear / vane components"],
           ["Configuration", "Custom to application"],
-          ["Service", "Custom to application"],
         ],
       },
     ],
@@ -140,38 +136,35 @@ const catalog = [
   {
     slug: "pneumatic-design",
     name: "Pneumatic Design",
-    tagline: "Placeholder tagline — final copy coming soon.",
+    tagline: "From air prep hardware through valve-and-cylinder pairing.",
     description:
-      "Placeholder category description. Final copy for Pneumatic Design will go here once available.",
+      "365 Technologies provides pneumatic system design support starting at the connection to a machine's air preparation hardware and continues to correctly pairing valves with cylinders to ensure safe machine operation. Our work spans agriculture, automotive, aerial and lift trucks, patient handling, medical, and industrial markets.",
     items: [
       {
         slug: "air-preparation-hardware",
         name: "Air Preparation Hardware",
-        blurb: "Placeholder product description — final copy coming soon.",
+        blurb: "Filters, regulators, and lubricators at the machine's air supply connection.",
         specs: [
-          ["Type", "Custom to application"],
+          ["Type", "Air prep (FRL) hardware"],
           ["Configuration", "Custom to application"],
-          ["Service", "Custom to application"],
         ],
       },
       {
         slug: "pneumatic-valves",
         name: "Pneumatic Valves",
-        blurb: "Placeholder product description — final copy coming soon.",
+        blurb: "Directional control valves specified and paired to match cylinder requirements.",
         specs: [
-          ["Type", "Custom to application"],
+          ["Type", "Pneumatic directional control valve"],
           ["Configuration", "Custom to application"],
-          ["Service", "Custom to application"],
         ],
       },
       {
         slug: "pneumatic-cylinders",
         name: "Pneumatic Cylinders",
-        blurb: "Placeholder product description — final copy coming soon.",
+        blurb: "Actuation components sized and paired with valves for safe machine operation.",
         specs: [
-          ["Type", "Custom to application"],
+          ["Type", "Pneumatic cylinder"],
           ["Configuration", "Custom to application"],
-          ["Service", "Custom to application"],
         ],
       },
     ],
