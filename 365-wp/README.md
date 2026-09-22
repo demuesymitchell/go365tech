@@ -7,6 +7,30 @@ most reliable deploy path (auto-detects `package.json`, runs
 
 ## What changed in this pass
 
+- **Fixed a real mobile bug on product pages**: the image + spec table
+  layout was hard-coded as a 2-column grid with no responsive rule at
+  all (leftover from an earlier redesign), so on a phone it squeezed
+  into two illegibly narrow columns instead of stacking. Now a proper
+  `.product-detail-grid` class stacks to one column under 1000px.
+- **Fixed potential header overflow on small phones** (iPhone
+  SE/mini-width and similar): the header row's spacing was generous
+  enough that logo + button + hamburger could crowd or overflow on
+  narrow screens. Tightened gaps, shrunk the logo, and — under 420px —
+  hide the "365 Technologies" wordmark text (keeping just the logo mark)
+  so everything fits with room to spare.
+- **Search no longer disappears below 900px with no fallback.** It used
+  to vanish entirely between roughly tablet and hamburger-menu width
+  with nothing replacing it. Now: it shrinks gracefully from 900px down
+  to 780px, and below that (hamburger mode) a full-width search field
+  appears as the first thing inside the mobile menu — search is
+  reachable from every page, at every width, not just the homepage
+  hero.
+- **Tightened the hero, breadcrumb, and search bar for small phones**
+  specifically (sub-420px): smaller headline size so it doesn't dominate
+  the whole first screen, tighter container padding, and the hero search
+  bar wraps to a full-width input above a full-width button instead of
+  squeezing both into one row.
+
 - **Homepage hero redesigned.** Removed the "Design Catalog" eyebrow
   label. The hero now has a dark navy gradient background with a
   `<video>` element behind it (autoplay, muted, looped) for you to drop

@@ -10,11 +10,11 @@
       <%- include('partials/catalog-sidebar') %>
 
       <div class="catalog-content">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;">
+        <div class="product-detail-grid">
           <div class="product-media"><span>Image Placeholder</span></div>
           <div>
             <span class="eyebrow"><%= cat.name %></span>
-            <h1 style="font-size:clamp(1.6rem, 3vw, 2.1rem);"><%= item.name %></h1>
+            <h1 class="product-detail-title"><%= item.name %></h1>
             <p style="font-size:1rem;"><%= item.blurb %></p>
 
             <table class="spec-table">
